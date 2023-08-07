@@ -1,1 +1,4 @@
 Flask==2.2.2
+requests
+flask_cors
+gunicorn
