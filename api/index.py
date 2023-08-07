@@ -100,6 +100,17 @@ def gethindishlok(chap, shlok):
     )
 
 
-@app.route("/GitaTeluguAPIproxy/<chap>/<shlok>")
-def gettelugushlok(chap, shloka):
-    return ""
+@app.route("/GitaTeluguAPIproxy/<lang>/<chap>/<shloka>")
+def gettelugushlok(lang, chap, shloka):
+    headers = {
+        'accept': 'application/json',
+    }
+
+    response = requests.get('https://gita-api.vercel.app/' + lang + '/verse/' + chap + '/' + shloka, headers=headers)
+
+    return jsonify(
+        {
+            "script": response.json()["verse"],
+            "meaning": response.json()["translation"]
+        }
+    )
