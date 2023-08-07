@@ -100,6 +100,10 @@ def gethindishlok(chap, shlok):
     )
 
 
+def filterList(number, list1):
+    containing = [s for s in list1 if number in s]
+    return containing[0]
+
 @app.route("/GitaTeluguAPIproxy/<lang>/<chap>/<shloka>")
 def gettelugushlok(lang, chap, shloka):
     headers = {
@@ -110,7 +114,7 @@ def gettelugushlok(lang, chap, shloka):
 
     return jsonify(
         {
-            "script": response.json()["verse"],
-            "meaning": response.json()["translation"]
+            "script": filterList(shloka, response.json()["verse"]) if type(response.json()["verse"]) == list else response.json()["verse"],
+            "meaning": response.json()["translation"] 
         }
     )
