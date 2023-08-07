@@ -1,4 +1,4 @@
-from flask import Flask,jsonify
+from flask import Flask,jsonify,render_template
 import requests
 import os
 from flask_cors import CORS
@@ -9,7 +9,7 @@ CORS(app)
 
 @app.route("/")
 def hello_world():
-    return "GitaAPI - powered by BhagavadGita.io"
+    return render_template('index.html')
 
 @app.route("/<chap>/<shlok>")
 def getshlok(chap, shlok):
@@ -36,7 +36,13 @@ def getshlok(chap, shlok):
     }
     response = requests.get('https://bhagavadgita.io/api/v1/chapters/' + chap + '/verses/' + shlok, params=params, headers=headers)
 
-    return response.json()
+    return jsonify(
+        {
+            "script": response.json()["transliteration"],
+            "meaning": response.json()["meaning"]
+        }
+    )
+
 
 
 @app.route('/getaccesstoken')
@@ -86,4 +92,14 @@ def gethindishlok(chap, shlok):
     }
     response = requests.get('https://bhagavadgita.io/api/v1/chapters/' + chap + '/verses/' + shlok, params=params, headers=headers)
 
-    return response.json()
+    return jsonify(
+        {
+            "script": response.json()["text"],
+            "meaning": response.json()["meaning"]
+        }
+    )
+
+
+@app.route("/GitaTeluguAPIproxy/<chap>/<shlok>")
+def gettelugushlok(chap, shloka):
+    return ""
