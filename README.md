@@ -1,28 +1,15 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask&demo-title=Flask%20%2B%20Vercel&demo-description=Use%20Flask%202%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
-
 # Official Gita API
 
-This api is powered by BhagavadGita.io
+This Python-Flask based api is powered by BhagavadGita.io AND GitaTeluguAPI.
 
-## Demo
+This is a API designed to proxy out some Gita verses from APIs to provide a consistent format for all languages.
 
-https://flask-python-template.vercel.app/
+## Other programs
 
-## How it Works
+### /api/scripts/languages.py
 
-This example uses the Web Server Gateway Interface (WSGI) with Flask to enable handling requests on Vercel with Serverless Functions.
+This [script](https://github.com/arjunj132/gita-api-v2/blob/main/api/scripts/language_scripts.py) provides a clean CLI to find all languages from a JSON file the Gita Foundation's `gita` repository (found in a branch, not in main):
 
-## Running Locally
+https://raw.githubusercontent.com/gita/gita/feat--new-languages/data/transliteration.json
 
-```bash
-npm i -g vercel
-vercel dev
-```
-
-Your Flask application is now available at `http://localhost:3000`.
-
-## One-Click Deploy
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask&demo-title=Flask%20%2B%20Vercel&demo-description=Use%20Flask%202%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
+This file is pretty big, with 6309 entries in the JSON array. This is not currently used for any of our languages, but we belive that we may implement languages such as Tamil later on, using this file.
