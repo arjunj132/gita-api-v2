@@ -1,5 +1,6 @@
 # Scrape all meanings - tamil
-# These meanings are scraped from https://temple.dinamalar.com/bhagavad_gita_main.php
+# These meanings are scraped from "https://www.sangatham.com/bhagavad_gita/gita-chapter-<chapter-number>
+# THIS IS NOT COMPLETED!!!
 
 import requests
 from bs4 import BeautifulSoup
