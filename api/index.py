@@ -3,6 +3,8 @@ import requests
 import os
 import random, datetime
 from flask_cors import CORS
+import pprint
+import google.generativeai as palm
 
 app = Flask(__name__)
 CORS(app)
@@ -39,6 +41,31 @@ def getshlokaforday():
 @app.route("/")
 def hello_world():
     return render_template('index.html')
+
+@app.route("/tests/search-basic/<q>")
+def aipalm(q):
+    palm.configure(api_key=os.environ["PALM_API"])
+    models = [m for m in palm.list_models() if 'generateText' in m.supported_generation_methods]
+    model = models[0].name
+    print(model)
+    prompt = f"""
+A user is searching this up:
+
+{q}
+
+Give a overview of this. No not provide information on any sensitive or dangerous content.
+"""
+
+    completion = palm.generate_text(
+        model=model,
+        prompt=prompt,
+        temperature=1,
+        # The maximum length of the response
+        max_output_tokens=10000,
+    )
+
+    print(completion.result)
+    return "hi"
 
 
 @app.route("/shlokaoftheday")
@@ -137,6 +164,19 @@ def gethindishlok(chap, shlok):
 def filterList(number, list1):
     containing = [s for s in list1 if number in s]
     return containing[0]
+
+
+@app.route("/testing/<chap>/<shlok>")
+def test_purohit(chap, shlok):
+    response = requests.get('https://bhagavadgitaapi.in/slok/' + chap + '/' + shlok)
+    resultjson = {
+        "script": response.json()["transliteration"],
+        "meaning": response.json()["purohit"]["et"],
+        "chapter": chap,
+        "shloka": shlok
+    }
+    return jsonify(resultjson)
+
 
 @app.route("/GitaTeluguAPIproxy/<lang>/<chap>/<shloka>")
 def gettelugushlok(lang, chap, shloka):
