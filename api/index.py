@@ -74,33 +74,19 @@ def shlokday():
 
 @app.route("/<chap>/<shlok>")
 def getshlok(chap, shlok):
+    url = "https://bhagavad-gita3.p.rapidapi.com/v2/chapters/1/verses/1/"
+
     headers = {
-        'accept': 'application/json',
-        'content-type': 'application/x-www-form-urlencoded',
+        "X-RapidAPI-Key": os.environ["RAPID_API"],
+        "X-RapidAPI-Host": "bhagavad-gita3.p.rapidapi.com"
     }
 
-    data = {
-        'client_id': os.environ['client_id'],
-        'client_secret': os.environ['client_secret'],
-        'grant_type': 'client_credentials',
-        'scope': 'verse chapter',
-    }
-
-    response = requests.post('https://bhagavadgita.io/auth/oauth/token', headers=headers, data=data)
-    
-    headers = {
-        'accept': 'application/json',
-    }
-
-    params = {
-        'access_token': response.json()["access_token"],
-    }
-    response = requests.get('https://bhagavadgita.io/api/v1/chapters/' + chap + '/verses/' + shlok, params=params, headers=headers)
+    response = requests.get(url, headers=headers)
 
     return jsonify(
         {
             "script": response.json()["transliteration"],
-            "meaning": response.json()["meaning"]
+            "meaning": response.json()["translations"][2]["description"]
         }
     )
 
@@ -129,34 +115,20 @@ def accesstoken():
 
 @app.route("/hindi/<chap>/<shlok>")
 def gethindishlok(chap, shlok):
+    url = "https://bhagavad-gita3.p.rapidapi.com/v2/chapters/1/verses/1/"
+
     headers = {
-        'accept': 'application/json',
-        'content-type': 'application/x-www-form-urlencoded',
+        "X-RapidAPI-Key": os.environ["RAPID_API"],
+        "X-RapidAPI-Host": "bhagavad-gita3.p.rapidapi.com"
     }
 
-    data = {
-        'client_id': os.environ['client_id'],
-        'client_secret': os.environ['client_secret'],
-        'grant_type': 'client_credentials',
-        'scope': 'verse chapter',
-    }
+    response = requests.get(url, headers=headers)
 
-    response = requests.post('https://bhagavadgita.io/auth/oauth/token', headers=headers, data=data)
-    
-    headers = {
-        'accept': 'application/json',
-    }
-
-    params = {
-        'access_token': response.json()["access_token"],
-        'language': 'hi',
-    }
-    response = requests.get('https://bhagavadgita.io/api/v1/chapters/' + chap + '/verses/' + shlok, params=params, headers=headers)
-
+    print(response.json())
     return jsonify(
         {
             "script": response.json()["text"],
-            "meaning": response.json()["meaning"]
+            "meaning": response.json()["translations"][6]["description"]
         }
     )
 
