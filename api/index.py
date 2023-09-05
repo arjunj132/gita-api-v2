@@ -74,7 +74,7 @@ def shlokday():
 
 @app.route("/<chap>/<shlok>")
 def getshlok(chap, shlok):
-    url = "https://bhagavad-gita3.p.rapidapi.com/v2/chapters/1/verses/1/"
+    url = "https://bhagavad-gita3.p.rapidapi.com/v2/chapters/" + chap + "/verses/" + shlok + "/"
 
     headers = {
         "X-RapidAPI-Key": os.environ["RAPID_API"],
@@ -115,7 +115,7 @@ def accesstoken():
 
 @app.route("/hindi/<chap>/<shlok>")
 def gethindishlok(chap, shlok):
-    url = "https://bhagavad-gita3.p.rapidapi.com/v2/chapters/1/verses/1/"
+    url = "https://bhagavad-gita3.p.rapidapi.com/v2/chapters/" + chap + "/verses/" + shlok + "/"
 
     headers = {
         "X-RapidAPI-Key": os.environ["RAPID_API"],
