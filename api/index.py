@@ -90,7 +90,23 @@ def getshlok(chap, shlok):
         }
     )
 
+@app.route("/android/<chap>/<shlok>")
+def getshlokand(chap, shlok):
+    url = "https://bhagavad-gita3.p.rapidapi.com/v2/chapters/" + chap + "/verses/" + shlok + "/"
 
+    headers = {
+        "X-RapidAPI-Key": os.environ["RAPID_API"],
+        "X-RapidAPI-Host": "bhagavad-gita3.p.rapidapi.com"
+    }
+
+    response = requests.get(url, headers=headers)
+
+    return jsonify(
+        [
+            response.json()["transliteration"],
+            response.json()["translations"][2]["description"]
+        ]
+    )
 
 @app.route('/getaccesstoken')
 def accesstoken():
