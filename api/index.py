@@ -109,7 +109,7 @@ def getshlokand(chap, shlok):
     )
 
 @app.route("android/GitaTeluguAPIproxy/<lang>/<chap>/<shloka>")
-def gettelugushlok(lang, chap, shloka):
+def gettelugushlokvandroid(lang, chap, shloka):
     headers = {
         'accept': 'application/json',
     }
