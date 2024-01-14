@@ -108,6 +108,21 @@ def getshlokand(chap, shlok):
         ]
     )
 
+@app.route("android/GitaTeluguAPIproxy/<lang>/<chap>/<shloka>")
+def gettelugushlok(lang, chap, shloka):
+    headers = {
+        'accept': 'application/json',
+    }
+
+    response = requests.get('https://gita-api.vercel.app/' + lang + '/verse/' + chap + '/' + shloka, headers=headers)
+    meaning = response.json()["translation"] 
+    return jsonify(
+        [
+            filterList(shloka, response.json()["verse"]) if type(response.json()["verse"]) == list else response.json()["verse"],
+            meaning + " (This meaning is for multiple shlokas)" if type(response.json()["verse"]) == list else meaning
+        ]
+    )
+
 @app.route('/getaccesstoken')
 def accesstoken():
     headers = {
