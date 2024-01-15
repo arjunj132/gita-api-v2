@@ -1,5 +1,4 @@
-Flask==2.2.2
+Flask
 requests
 flask_cors
 gunicorn
-google-generativeai
