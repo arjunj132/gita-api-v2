@@ -8,6 +8,8 @@ import pprint
 app = Flask(__name__)
 CORS(app)
 
+print("starting api...")
+
 def getshlokaforday():
     try:
         x = datetime.datetime.today().strftime("%Y:%m:%d")
